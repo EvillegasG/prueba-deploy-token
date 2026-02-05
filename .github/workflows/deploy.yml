@@ -1,0 +1,28 @@
+name: Deploy con Token Manual
+
+on:
+  push:
+    branches:
+      - main
+
+permissions:
+  contents: write
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      # 1. Descargar el código
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          # Aquí es opcional, pero si el repo fuera privado y el token
+          persist-credentials: false 
+
+      # 2. Desplegar a GitHub Pages
+      - name: Deploy to GitHub Pages
+        uses: JamesIves/github-pages-deploy-action@v4
+        with:
+          token: ${{ secrets.MI_TOKEN_PERSONAL }} 
+          branch: gh-pages 
+          folder: .
